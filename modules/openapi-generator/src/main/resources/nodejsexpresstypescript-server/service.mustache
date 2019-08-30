@@ -24,7 +24,7 @@ export default class {{{classname}}}Service {
    * returns {{{returnType}}}
   {{/returnType}}
    **/
-  static {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}} : {{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}:{{{dataType}}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}}) {
+  static {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}} : {{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{^required}}?{{/required}}:{{{dataType}}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}}) {
     return new Promise(
       async (resolve) => {
         try {
