@@ -165,8 +165,8 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
             String replacement = File.separator + implFolder + File.separator;
             result = result.replace(stringToMatch, replacement);
 
-            stringToMatch = "Controller.js";
-            replacement = "Service.js";
+            stringToMatch = "Controller.ts";
+            replacement = "Service.ts";
             result = result.replace(stringToMatch, replacement);
         }
         return result;
