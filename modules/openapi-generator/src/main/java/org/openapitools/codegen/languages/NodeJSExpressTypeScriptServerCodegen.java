@@ -36,7 +36,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.regex.Pattern;
 
 import static org.openapitools.codegen.utils.StringUtils.*;
 
@@ -60,7 +59,7 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
                 .build();
 
         outputFolder = "generated-code/nodejs-express-server";
-        embeddedTemplateDir = templateDir = "nodejs-express-server";
+        embeddedTemplateDir = templateDir = "nodejsexpresstypescript-server";
 
         setReservedWordsLowerCase(
                 Arrays.asList(
@@ -95,7 +94,7 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
         supportingFiles.add(new SupportingFile("controllers" + File.separator + "Controller.mustache", "controllers", "Controller.js"));
         // service folder
         supportingFiles.add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.js"));
-        supportingFiles.add(new SupportingFile("services" + File.separator + "Service.mustache", "services", "Service.js"));
+        supportingFiles.add(new SupportingFile("services" + File.separator + "Service.mustache", "services", "Service.ts"));
 
         // do not overwrite if the file is already present
         writeOptional(outputFolder, new SupportingFile("package.mustache", "", "package.json"));

@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-const Service = require('./Service');
+// const Service = require('./Service');
+import Service from './Service';
 
-class {{{classname}}}Service {
+export default class {{{classname}}}Service {
 
 {{#operations}}
 {{#operation}}
@@ -23,7 +24,7 @@ class {{{classname}}}Service {
    * returns {{{returnType}}}
   {{/returnType}}
    **/
-  static {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}}) {
+  static {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}} : {{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}:{{{dataType}}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}}) {
     return new Promise(
       async (resolve) => {
         try {
