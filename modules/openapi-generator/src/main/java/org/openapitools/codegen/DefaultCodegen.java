@@ -1614,7 +1614,7 @@ public class DefaultCodegen implements CodegenConfig {
      */
     @SuppressWarnings("static-method")
     public String getTypeDeclaration(String name) {
-        return name;
+        return typeMapping.getOrDefault(name,name);
     }
 
     /**

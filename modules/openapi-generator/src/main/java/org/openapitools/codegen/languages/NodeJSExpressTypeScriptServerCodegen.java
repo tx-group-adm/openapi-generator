@@ -354,6 +354,9 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
                 }
             }
         }
+        for( String typeName : openAPI.getComponents().getSchemas().keySet() ){
+            this.typeMapping.put( typeName, "Models." + typeName );
+        }
 
     }
 
