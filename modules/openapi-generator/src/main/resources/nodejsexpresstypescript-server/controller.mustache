@@ -1,14 +1,18 @@
-const Controller = require('./Controller');
+//const Controller = require('./Controller');
+import Controller from './Controller';
+import Service from '../services/Service'
+import {{{classname}}}Service from '../services/{{{classname}}}Service';
 
-class {{{classname}}}Controller {
-  constructor(Service) {
-    this.service = Service;
+
+class {{{classname}}}Controller extends Controller {
+  constructor(service: Service) {
+    super( service );
   }
 
 {{#operations}}
 {{#operation}}
-  async {{operationId}}(request, response) {
-    await Controller.handleRequest(request, response, this.service.{{operationId}});
+  async {{operationId}}(request : any, response : any) {
+    await Controller.handleRequest(request, response, {{{classname}}}Service.{{operationId}});
   }
 
 {{/operation}}

@@ -76,7 +76,7 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
         // no model file
         modelTemplateFiles.clear();
 
-        apiTemplateFiles.put("controller.mustache", ".js");
+        apiTemplateFiles.put("controller.mustache", ".ts");
         apiTemplateFiles.put("service.mustache", ".ts");
 
         supportingFiles.add(new SupportingFile("openapi.mustache", "api", "openapi.yaml"));
@@ -87,11 +87,11 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
         supportingFiles.add(new SupportingFile("eslintrc.mustache", "", ".eslintrc.json"));
 
         // utils folder
-        supportingFiles.add(new SupportingFile("utils" + File.separator + "openapiRouter.mustache", "utils", "openapiRouter.js"));
+        supportingFiles.add(new SupportingFile("utils" + File.separator + "openapiRouter.mustache", "utils", "openapiRouter.ts"));
 
         // controllers folder
         supportingFiles.add(new SupportingFile("controllers" + File.separator + "index.mustache", "controllers", "index.js"));
-        supportingFiles.add(new SupportingFile("controllers" + File.separator + "Controller.mustache", "controllers", "Controller.js"));
+        supportingFiles.add(new SupportingFile("controllers" + File.separator + "Controller.mustache", "controllers", "Controller.ts"));
         // service folder
         supportingFiles.add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.js"));
         supportingFiles.add(new SupportingFile("services" + File.separator + "Service.mustache", "services", "Service.ts"));

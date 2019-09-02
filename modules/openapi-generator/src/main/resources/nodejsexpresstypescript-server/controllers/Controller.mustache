@@ -1,7 +1,12 @@
 const logger = require('../logger');
+import Service from '../services/Service'
 
-class Controller {
-  static sendResponse(response, payload) {
+export default class Controller {
+  service: Service;
+  constructor( service : Service ){
+    this.service = service;
+  }
+  static sendResponse(response : any, payload : any) {
     /**
      * The default response-code is 200. We want to allow to change that. in That case,
      * payload will be an object consisting of a code and a payload. If not customized
@@ -16,7 +21,7 @@ class Controller {
     }
   }
 
-  static sendError(response, error) {
+  static sendError(response : any, error : any) {
     response.status(error.code || 500);
     if (error.error instanceof Object) {
       response.json(error.error);
@@ -25,15 +30,15 @@ class Controller {
     }
   }
 
-  static collectFiles(request) {
+  static collectFiles(request : any) {
     logger.info('Checking if files are expected in schema');
     if (request.openapi.schema.requestBody !== undefined) {
       const [contentType] = request.headers['content-type'].split(';');
       if (contentType === 'multipart/form-data') {
         const contentSchema = request.openapi.schema.requestBody.content[contentType].schema;
-        Object.entries(contentSchema.properties).forEach(([name, property]) => {
+        Object.entries(contentSchema.properties).forEach(([name, property] : any ) => {
           if (property.type === 'string' && ['binary', 'base64'].indexOf(property.format) > -1) {
-            request.body[name] = request.files.find(file => file.fieldname === name);
+            request.body[name] = request.files.find((file : any) => file.fieldname === name);
           }
         });
       } else if (request.openapi.schema.requestBody.content[contentType] !== undefined
@@ -43,13 +48,13 @@ class Controller {
     }
   }
 
-  static collectRequestParams(request) {
+  static collectRequestParams(request : any) {
     this.collectFiles(request);
-    const requestParams = {};
+    const requestParams : any= {};
     if (request.openapi.schema.requestBody !== undefined) {
       requestParams.body = request.body;
     }
-    request.openapi.schema.parameters.forEach((param) => {
+    request.openapi.schema.parameters.forEach((param : any) => {
       if (param.in === 'path') {
         requestParams[param.name] = request.openapi.pathParams[param.name];
       } else if (param.in === 'query') {
@@ -59,7 +64,7 @@ class Controller {
     return requestParams;
   }
 
-  static async handleRequest(request, response, serviceOperation) {
+  static async handleRequest(request : any, response : any, serviceOperation : any) {
     try {
       const serviceResponse = await serviceOperation(this.collectRequestParams(request));
       Controller.sendResponse(response, serviceResponse);

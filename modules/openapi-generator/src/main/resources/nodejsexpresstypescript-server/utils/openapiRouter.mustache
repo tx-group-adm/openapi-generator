@@ -2,7 +2,9 @@ const logger = require('../logger');
 const controllers = require('../controllers');
 const Services = require('../services');
 
-function handleError(err, request, response, next) {
+import * as express from "express";
+
+function handleError(err : any, request : any, response : any, next : any) {
   logger.error(err);
   const code = err.code || 400;
   response.status(code);
@@ -28,7 +30,7 @@ function handleError(err, request, response, next) {
  * @returns {Function}
  */
 function openApiRouter() {
-  return async (request, response, next) => {
+  return async (request : any, response: any, next : any) => {
     try {
       /**
        * This middleware runs after a previous process have applied an openapi object
