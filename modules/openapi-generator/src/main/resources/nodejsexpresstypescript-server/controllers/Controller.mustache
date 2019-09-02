@@ -1,4 +1,4 @@
-const logger = require('../logger');
+//const logger = require('../logger');
 import Service from '../services/Service'
 
 export default class Controller {
@@ -31,7 +31,7 @@ export default class Controller {
   }
 
   static collectFiles(request : any) {
-    logger.info('Checking if files are expected in schema');
+    //logger.info('Checking if files are expected in schema');
     if (request.openapi.schema.requestBody !== undefined) {
       const [contentType] = request.headers['content-type'].split(';');
       if (contentType === 'multipart/form-data') {

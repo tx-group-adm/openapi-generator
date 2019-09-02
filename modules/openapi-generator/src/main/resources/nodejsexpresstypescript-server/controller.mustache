@@ -1,22 +1,22 @@
-//const Controller = require('./Controller');
 import Controller from './Controller';
 import Service from '../services/Service'
 import {{{classname}}}Service from '../services/{{{classname}}}Service';
 
 
-class {{{classname}}}Controller extends Controller {
-  constructor(service: Service) {
+export default class {{{classname}}}Controller extends Controller {
+  service:{{{classname}}}Service;
+  constructor(service: {{{classname}}}Service) {
     super( service );
+    this.service = service;
   }
 
 {{#operations}}
 {{#operation}}
   async {{operationId}}(request : any, response : any) {
-    await Controller.handleRequest(request, response, {{{classname}}}Service.{{operationId}});
+    await Controller.handleRequest(request, response, this.service.{{operationId}});
   }
 
 {{/operation}}
 }
 
-module.exports = {{classname}}Controller;
 {{/operations}}

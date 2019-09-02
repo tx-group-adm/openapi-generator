@@ -1,11 +1,14 @@
-const logger = require('../logger');
-const controllers = require('../controllers');
-const Services = require('../services');
+//const logger = require('../logger');
+//const controllers = require('../controllers');
+//const Services = require('../services');
 
 import * as express from "express";
+import * as Controllers from "../controllers"
+import * as Services from "../services"
+import * as Implementations from "../implementations"
 
 function handleError(err : any, request : any, response : any, next : any) {
-  logger.error(err);
+  //logger.error(err);
   const code = err.code || 400;
   response.status(code);
   response.error = err;
@@ -14,6 +17,19 @@ function handleError(err : any, request : any, response : any, next : any) {
     error: err,
   }));
 }
+
+{{#apiInfo}}
+    {{#apis}}
+        {{#operations}}
+            {{#operation}}
+                {{#-first}}
+const {{classname}}Controller = new Controllers.{{classname}}Controller(new ((Implementations as any).{{classname}}Service || Services.{{classname}}Service)());
+                {{/-first}}
+            {{/operation}}
+        {{/operations}}
+    {{/apis}}
+{{/apiInfo}}
+
 
 /**
  * The purpose of this route is to collect the request variables as defined in the
@@ -29,7 +45,7 @@ function handleError(err : any, request : any, response : any, next : any) {
  *  are passed on to the next middleware handler.
  * @returns {Function}
  */
-function openApiRouter() {
+export default function openApiRouter() {
   return async (request : any, response: any, next : any) => {
     try {
       /**
@@ -50,14 +66,42 @@ function openApiRouter() {
       // });
       const controllerName = request.openapi.schema['x-openapi-router-controller'];
       const serviceName = request.openapi.schema['x-openapi-router-service'];
-      if (!controllers[controllerName] || controllers[controllerName] === undefined) {
-        handleError(`request sent to controller '${controllerName}' which has not been defined`,
-          request, response, next);
-      } else {
-        const apiController = new controllers[controllerName](Services[serviceName]);
+
+//      if (!controllers[controllerName] || controllers[controllerName] === undefined) {
+//        handleError(`request sent to controller '${controllerName}' which has not been defined`,
+//         request, response, next);
+//      } else {
+        //const apiController = new controllers[controllerName](Services[serviceName]);
         const controllerOperation = request.openapi.schema.operationId;
-        await apiController[controllerOperation](request, response, next);
-      }
+        switch( controllerName ){
+{{#apiInfo}}
+    {{#apis}}
+        {{#operations}}
+            {{#operation}}
+                {{#-first}}
+            case "{{classname}}Controller":
+                switch( controllerOperation ) {
+                {{/-first}}
+                    case "{{operationId}}" :
+                        //call here
+                        {{classname}}Controller.{{operationId}}( request, response );
+                        break;
+                {{#-last}}
+                    default:
+                        // do nothing
+                        break;
+                    };
+                break;
+                {{/-last}}
+            {{/operation}}
+        {{/operations}}
+    {{/apis}}
+{{/apiInfo}}
+        default:
+            // do nothing;
+            break;
+        };
+        //await apiController[controllerOperation](request, response, next);
     } catch (error) {
       console.error(error);
       const err = { code: 500, error: error.message };
@@ -66,4 +110,3 @@ function openApiRouter() {
   };
 }
 
-module.exports = openApiRouter;
