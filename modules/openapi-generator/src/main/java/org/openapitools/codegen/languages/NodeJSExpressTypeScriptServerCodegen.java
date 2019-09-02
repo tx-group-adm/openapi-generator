@@ -80,9 +80,9 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
         apiTemplateFiles.put("service.mustache", ".ts");
 
         supportingFiles.add(new SupportingFile("openapi.mustache", "api", "openapi.yaml"));
-        supportingFiles.add(new SupportingFile("config.mustache", "", "config.js"));
-        supportingFiles.add(new SupportingFile("expressServer.mustache", "", "expressServer.js"));
-        supportingFiles.add(new SupportingFile("index.mustache", "", "index.js"));
+        //supportingFiles.add(new SupportingFile("config.mustache", "", "config.js"));
+        //supportingFiles.add(new SupportingFile("expressServer.mustache", "", "expressServer.js"));
+        //supportingFiles.add(new SupportingFile("index.mustache", "", "index.js"));
         supportingFiles.add(new SupportingFile("logger.mustache", "", "logger.js"));
         supportingFiles.add(new SupportingFile("eslintrc.mustache", "", ".eslintrc.json"));
 
@@ -90,10 +90,10 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
         supportingFiles.add(new SupportingFile("utils" + File.separator + "openapiRouter.mustache", "utils", "openapiRouter.ts"));
 
         // controllers folder
-        supportingFiles.add(new SupportingFile("controllers" + File.separator + "index.mustache", "controllers", "index.js"));
+        //supportingFiles.add(new SupportingFile("controllers" + File.separator + "index.mustache", "controllers", "index.js"));
         supportingFiles.add(new SupportingFile("controllers" + File.separator + "Controller.mustache", "controllers", "Controller.ts"));
         // service folder
-        supportingFiles.add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.js"));
+        //supportingFiles.add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.js"));
         supportingFiles.add(new SupportingFile("services" + File.separator + "Service.mustache", "services", "Service.ts"));
 
         // do not overwrite if the file is already present
