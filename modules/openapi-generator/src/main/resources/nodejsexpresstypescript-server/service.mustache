@@ -24,20 +24,13 @@ export default class {{{classname}}}Service extends Service {
    * returns {{{returnType}}}
   {{/returnType}}
    **/
-  {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}} : {{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{^required}}?{{/required}}:{{{dataType}}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}}) {
-    return new Promise(
-      async (resolve) => {
+  async {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}} : {{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{^required}}?{{/required}}:{{{dataType}}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}}) {
         try {
-          resolve(Service.successResponse(''));
+          return await Service.successResponse('');
         } catch (e) {
-          resolve(Service.rejectResponse(
-            e.message || 'Invalid input',
-            e.status || 405,
-          ));
+          return await Service.rejectResponse(e.message || 'Invalid input', e.status || 405);
         }
-      },
-    );
-  }
+    }
 
 {{/operation}}
 }

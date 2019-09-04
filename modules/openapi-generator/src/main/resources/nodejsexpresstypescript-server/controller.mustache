@@ -13,7 +13,13 @@ export default class {{{classname}}}Controller extends Controller {
 {{#operations}}
 {{#operation}}
   async {{operationId}}(request : any, response : any) {
-    await Controller.handleRequest(request, response, this.service.{{operationId}});
+    try {
+      const requestParams = Controller.collectRequestParams(request);
+      const serviceResponse = await this.service.{{operationId}}(requestParams);
+      await Controller.sendResponse(response, serviceResponse);
+    } catch( error ) {
+      Controller.sendError(response,error);
+    }
   }
 
 {{/operation}}
