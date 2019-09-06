@@ -24,7 +24,7 @@ export default class {{{classname}}}Service extends Service {
    * returns {{{returnType}}}
   {{/returnType}}
    **/
-  async {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}} : {{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{^required}}?{{/required}}:{{{dataType}}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}}) {
+  async {{{operationId}}}({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} }{{/-last}}{{/allParams}} : {{{operationId}}}Payload ) {
         try {
           return await Service.successResponse('');
         } catch (e) {
@@ -35,4 +35,13 @@ export default class {{{classname}}}Service extends Service {
 {{/operation}}
 }
 
+{{/operations}}
+
+{{#operations}}
+    {{#operation}}
+export interface {{{operationId}}}Payload {{#allParams}}{{#-first}}{ {{/-first}}
+        {{paramName}}{{^required}}?{{/required}}:{{{dataType}}};{{/allParams}}
+}
+
+    {{/operation}}
 {{/operations}}
