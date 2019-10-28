@@ -80,10 +80,6 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
         apiTemplateFiles.put("service.mustache", ".ts");
 
         supportingFiles.add(new SupportingFile("openapi.mustache", "../../", "openapi.yaml"));
-        //supportingFiles.add(new SupportingFile("config.mustache", "", "config.js"));
-        //supportingFiles.add(new SupportingFile("expressServer.mustache", "", "expressServer.js"));
-        //supportingFiles.add(new SupportingFile("index.mustache", "", "index.js"));
-        //supportingFiles.add(new SupportingFile("logger.mustache", "", "logger.js"));
         supportingFiles.add(new SupportingFile("eslintrc.mustache", "", ".eslintrc.json"));
 
         // utils folder
