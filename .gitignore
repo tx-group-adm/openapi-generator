@@ -52,6 +52,9 @@ samples/server-generator/scalatra/output
 samples/server-generator/scalatra/target
 samples/server-generator/scalatra/output/.history
 
+# scala
+samples/client/petstore/scala-httpclient/
+
 # nodejs
 **/node_modules
 samples/server-generator/node/output/node_modules
@@ -180,9 +183,9 @@ samples/server/petstore/aspnetcore/.vs/
 effective.pom
 
 # kotlin
-samples/client/petstore/kotlin/src/main/kotlin/test/
-samples/client/petstore/kotlin-threetenbp/build
-samples/client/petstore/kotlin-string/build
+samples/client/petstore/kotlin/
+samples/client/petstore/kotlin-threetenbp/
+samples/client/petstore/kotlin-string/
 samples/openapi3/client/petstore/kotlin/build
 samples/server/petstore/kotlin-server/ktor/build
 samples/server/petstore/kotlin-springboot/build
@@ -236,3 +239,6 @@ samples/client/petstore/c/*.so
 # Ruby
 samples/openapi3/client/petstore/ruby/Gemfile.lock
 samples/openapi3/client/petstore/ruby-faraday/Gemfile.lock
+
+# Groovy
+samples/client/petstore/groovy/

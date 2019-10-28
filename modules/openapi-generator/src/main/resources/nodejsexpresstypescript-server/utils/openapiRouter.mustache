@@ -2,10 +2,8 @@
 //const controllers = require('../controllers');
 //const Services = require('../services');
 
-import * as express from "express";
 import * as Controllers from "../controllers"
 import * as Services from "../services"
-import * as Implementations from "../implementations"
 
 function handleError(err : any, request : any, response : any, next : any) {
   //logger.error(err);
@@ -17,18 +15,6 @@ function handleError(err : any, request : any, response : any, next : any) {
     error: err,
   }));
 }
-
-{{#apiInfo}}
-    {{#apis}}
-        {{#operations}}
-            {{#operation}}
-                {{#-first}}
-const {{classname}}Controller = new Controllers.{{classname}}Controller(new ((Implementations as any).{{classname}}Service || Services.{{classname}}Service)());
-                {{/-first}}
-            {{/operation}}
-        {{/operations}}
-    {{/apis}}
-{{/apiInfo}}
 
 
 /**
@@ -45,7 +31,19 @@ const {{classname}}Controller = new Controllers.{{classname}}Controller(new ((Im
  *  are passed on to the next middleware handler.
  * @returns {Function}
  */
-export default function openApiRouter() {
+export default function openApiRouter(Implementations: { [index: string]: any }) {
+{{#apiInfo}}
+    {{#apis}}
+        {{#operations}}
+            {{#operation}}
+                {{#-first}}
+    const {{classname}}Controller = new Controllers.{{classname}}Controller.default(new ((Implementations.{{classname}}Service || Services.{{classname}}Service.default)()));
+                {{/-first}}
+            {{/operation}}
+        {{/operations}}
+    {{/apis}}
+{{/apiInfo}}
+
   return async (request : any, response: any, next : any) => {
     try {
       /**
