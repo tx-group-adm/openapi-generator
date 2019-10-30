@@ -37,7 +37,7 @@ export default function openApiRouter(Implementations: { [index: string]: any })
         {{#operations}}
             {{#operation}}
                 {{#-first}}
-    const {{classname}}Controller = new Controllers.{{classname}}Controller.default(new ((Implementations.{{classname}}Service || Services.{{classname}}Service.default)()));
+    const {{classname}}Controller = new Controllers.{{classname}}Controller.default((new (Implementations.{{classname}}Service || Services.{{classname}}Service.default)()));
                 {{/-first}}
             {{/operation}}
         {{/operations}}
