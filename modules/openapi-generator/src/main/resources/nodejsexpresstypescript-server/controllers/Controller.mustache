@@ -14,7 +14,10 @@ export default class Controller {
      */
     response.status(payload.code || 200);
     const responsePayload = payload.payload !== undefined ? payload.payload : payload;
-    if (responsePayload instanceof Object) {
+    if (payload.code && Math.trunc(payload.code / 100) === 3) {
+        response.redirect(payload.code, payload.payload);
+    }
+    else if (responsePayload instanceof Object) {
       response.json(responsePayload);
     } else {
       response.end(responsePayload);
@@ -51,6 +54,26 @@ export default class Controller {
   static collectRequestParams(request : any) {
     this.collectFiles(request);
     const requestParams : any= {};
+    // handles any body payload
+    /*
+    if (request.openapi.schema.requestBody !== undefined) {
+    requestParams.body = request.body;
+    }
+    */
+
+    // handles parameters passed through x-www-form-urlencoded
+    if (
+        request.openapi.schema.requestBody !== undefined &&
+        request.openapi.schema.requestBody.content !== undefined &&
+        request.openapi.schema.requestBody.content['application/x-www-form-urlencoded'] != null
+    ) {
+    const bodyParams = request.openapi.schema.requestBody.content['application/x-www-form-urlencoded'].schema.properties;
+    for (var param in bodyParams) {
+        requestParams[param] = request.body[param];
+    }
+  }
+
+// handles in path and query parameters
     if (request.openapi.schema.requestBody !== undefined) {
       requestParams.body = request.body;
     }
