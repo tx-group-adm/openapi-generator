@@ -56,19 +56,19 @@ export default class Controller {
     const requestParams : any= {};
     // handles any body payload
     /*
-    if (request.openapi.schema.requestBody !== undefined) {
+    if (request.openapi.schema.hasOwnProperty('requestBody')) {
     requestParams.body = request.body;
     }
     */
 
     // handles parameters passed through x-www-form-urlencoded
     if (
-        request.openapi.schema.requestBody !== undefined &&
-        request.openapi.schema.requestBody.content !== undefined &&
+        request.openapi.schema.hasOwnProperty('requestBody') &&
+        request.openapi.schema.requestBody.hasOwnProperty('content') &&
         request.openapi.schema.requestBody.content['application/x-www-form-urlencoded'] != null
     ) {
     const bodyParams = request.openapi.schema.requestBody.content['application/x-www-form-urlencoded'].schema.properties;
-    for (var param in bodyParams) {
+    for (const param in bodyParams) {
         requestParams[param] = request.body[param];
     }
   }
