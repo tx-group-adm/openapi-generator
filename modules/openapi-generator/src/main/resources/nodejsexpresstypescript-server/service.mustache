@@ -26,7 +26,7 @@ export default class {{{classname}}}Service extends Service {
    **/
   async {{{operationId}}}({ {{#allParams}}{{#-first}} {{/-first}}{{paramName}}{{#hasMore}}, {{/hasMore}}{{#-last}} {{/-last}}{{/allParams}} } : {{{operationId}}}Payload ) {
         try {
-          return await Service.successResponse('');
+          return await Service.successResponse('', 501);
         } catch (e) {
           return await Service.rejectResponse(e.message || 'Invalid input', e.status || 405);
         }
