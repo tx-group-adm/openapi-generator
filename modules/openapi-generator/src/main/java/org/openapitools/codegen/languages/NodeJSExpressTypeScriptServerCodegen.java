@@ -70,6 +70,8 @@ public class NodeJSExpressTypeScriptServerCodegen extends DefaultCodegen impleme
                         "void", "while", "with", "yield")
         );
 
+        typeMapping.put("number", "number");
+
         additionalProperties.put("apiVersion", apiVersion);
         additionalProperties.put("implFolder", implFolder);
 
